@@ -34,4 +34,4 @@ out/
 .vscode/
 
 ### H2 Database ###
-/petclinic_monlith.mv.db
+petclinic_monlith.mv.db
