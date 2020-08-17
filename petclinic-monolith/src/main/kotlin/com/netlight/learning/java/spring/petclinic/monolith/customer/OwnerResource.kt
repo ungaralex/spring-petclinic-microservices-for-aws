@@ -1,11 +1,9 @@
 package com.netlight.learning.java.spring.petclinic.monolith.customer
 
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
-import javax.persistence.EntityNotFoundException
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotBlank
 
@@ -25,12 +23,10 @@ class OwnerResource(val ownerRepository: OwnerRepository, val ownerMapper: Owner
     @PutMapping("{ownerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun updateOwner(@PathVariable ownerId: Long, @RequestBody ownerUpdate: OwnerUpdate) {
-        ownerRepository.findByIdOrNull(ownerId)
-                ?.also {
-                    ownerMapper.updateOwner(it, ownerUpdate)
-                    ownerRepository.save(it)
-                }
-                ?: EntityNotFoundException("No owner with ID $ownerId")
+        ownerRepository.getOne(ownerId).also {
+            ownerMapper.updateOwner(it, ownerUpdate)
+            ownerRepository.save(it)
+        }
     }
 }
 

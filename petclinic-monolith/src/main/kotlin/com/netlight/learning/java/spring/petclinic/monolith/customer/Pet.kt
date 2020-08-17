@@ -1,7 +1,11 @@
 package com.netlight.learning.java.spring.petclinic.monolith.customer
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonView
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import java.util.*
 import javax.persistence.*
@@ -21,6 +25,7 @@ data class Pet(
         @ManyToOne
         var type: PetType,
         @ManyToOne
+        @JsonIgnoreProperties("pets")
         var owner: Owner
 )
 

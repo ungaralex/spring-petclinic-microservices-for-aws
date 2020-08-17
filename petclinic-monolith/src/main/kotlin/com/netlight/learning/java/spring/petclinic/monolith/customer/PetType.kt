@@ -2,10 +2,7 @@ package com.netlight.learning.java.spring.petclinic.monolith.customer
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
@@ -15,6 +12,7 @@ data class PetType(
         @GeneratedValue
         val id: Long,
         @NotBlank
+        @Column(unique = true)
         var name: String
 )
 
