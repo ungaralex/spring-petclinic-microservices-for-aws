@@ -1,5 +1,6 @@
 package com.netlight.learning.java.spring.petclinic.monolith.customer
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*
@@ -15,6 +16,7 @@ data class Pet(
         @NotBlank
         var name: String,
         @Temporal(TemporalType.DATE)
+        @JsonFormat(pattern = "yyyy-MM-dd")
         var birthDate: Date,
         @ManyToOne
         var type: PetType,

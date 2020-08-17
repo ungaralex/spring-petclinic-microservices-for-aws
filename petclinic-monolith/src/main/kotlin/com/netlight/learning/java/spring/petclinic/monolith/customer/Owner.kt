@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank
 data class Owner(
         @Id
         @GeneratedValue
-        val id: Int,
+        val id: Long,
         @NotBlank
         var firstName: String,
         @NotBlank
@@ -24,7 +24,7 @@ data class Owner(
         @Digits(fraction = 0, integer = 10)
         var telephone: String,
         @OneToMany(cascade = [CascadeType.ALL], mappedBy = "owner")
-        var pets: MutableSet<Pet>
+        var pets: MutableSet<Pet> = mutableSetOf()
 )
 
 @Repository

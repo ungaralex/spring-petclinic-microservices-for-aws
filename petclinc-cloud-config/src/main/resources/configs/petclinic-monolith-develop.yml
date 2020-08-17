@@ -7,4 +7,4 @@ spring:
     platform: org.hibernate.dialect.H2Dialect
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update

@@ -19,6 +19,7 @@ repositories {
 extra["springCloudVersion"] = "Hoxton.SR7"
 
 val springdocVersion = "1.4.4"
+val mapstructVersion = "1.3.1.Final"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -31,8 +32,10 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-ui:${springdocVersion}")
 	implementation("org.springdoc:springdoc-openapi-data-rest:${springdocVersion}")
 	implementation("org.springdoc:springdoc-openapi-kotlin:${springdocVersion}")
+	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("org.postgresql:postgresql")
+	annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}

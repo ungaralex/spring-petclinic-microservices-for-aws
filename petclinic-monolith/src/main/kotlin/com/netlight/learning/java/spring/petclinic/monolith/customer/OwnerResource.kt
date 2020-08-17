@@ -1,13 +1,17 @@
 package com.netlight.learning.java.spring.petclinic.monolith.customer
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.persistence.EntityNotFoundException
+import javax.validation.constraints.Digits
+import javax.validation.constraints.NotBlank
 
 @RequestMapping("owners")
 @RestController
-class OwnerResource(val ownerRepository: OwnerRepository) {
+class OwnerResource(val ownerRepository: OwnerRepository, val ownerMapper: OwnerMapper) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createOwner(@Validated @RequestBody owner: Owner): Owner = ownerRepository.save(owner)
@@ -17,4 +21,29 @@ class OwnerResource(val ownerRepository: OwnerRepository) {
 
     @GetMapping
     fun findAll(): List<Owner> = ownerRepository.findAll()
+
+    @PutMapping("{ownerId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun updateOwner(@PathVariable ownerId: Long, @RequestBody ownerUpdate: OwnerUpdate) {
+        ownerRepository.findByIdOrNull(ownerId)
+                ?.also {
+                    ownerMapper.updateOwner(it, ownerUpdate)
+                    ownerRepository.save(it)
+                }
+                ?: EntityNotFoundException("No owner with ID $ownerId")
+    }
 }
+
+data class OwnerUpdate(
+        @NotBlank
+        var firstName: String,
+        @NotBlank
+        var lastName: String,
+        @NotBlank
+        var address: String,
+        @NotBlank
+        var city: String,
+        @NotBlank
+        @Digits(fraction = 0, integer = 10)
+        var telephone: String
+)
