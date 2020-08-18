@@ -35,3 +35,4 @@ out/
 
 ### H2 Database ###
 petclinic_monlith.mv.db
+petclinic_monlith.trace.db
