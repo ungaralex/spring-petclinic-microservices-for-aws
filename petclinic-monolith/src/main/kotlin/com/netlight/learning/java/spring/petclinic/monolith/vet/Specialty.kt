@@ -22,16 +22,25 @@
  * SOFTWARE.
  */
 
-package com.netlight.learning.java.spring.petclinic.monolith
+package com.netlight.learning.java.spring.petclinic.monolith.vet
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.Table
+import javax.validation.constraints.NotBlank
 
-@SpringBootApplication
-@EnableJpaRepositories
-class MonolithApplication
+@Entity
+@Table(name = "specialties")
+data class Specialty(
+        @Id
+        @GeneratedValue
+        val id: Long,
+        @NotBlank
+        val name: String
+)
 
-fun main(args: Array<String>) {
-	runApplication<MonolithApplication>(*args)
-}
+@Repository
+interface SpecialtyRepository : JpaRepository<Specialty, Long>
