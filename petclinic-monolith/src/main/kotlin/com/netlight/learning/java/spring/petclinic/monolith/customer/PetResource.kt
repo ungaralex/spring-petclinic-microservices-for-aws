@@ -31,7 +31,10 @@ class PetResource(val petService: PetService, val ownerService: OwnerService, va
 
     @PutMapping("pets/{petId}")
     fun updatePet(@PathVariable petId: Long, @RequestBody @Validated updateDTO: PetUpdateDTO) {
-        with(petService.getPetById(petId)) { petService.updatePet(this, updateDTO.petTypeId) }
+        with(petService.getPetById(petId)) {
+            petMapper.updatePet(this, updateDTO)
+            petService.updatePet(this, updateDTO.petTypeId)
+        }
     }
 
     @GetMapping("pets/{petId}")
